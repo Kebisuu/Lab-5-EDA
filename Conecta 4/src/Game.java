@@ -1,10 +1,83 @@
+import java.util.Scanner;
 public class Game {
-String status;
-String winnerPlayerName;
-String PlayerA;
-String PlayerB;
-
-
-Game(String playerNameA, String playerNameB) {}
-play()
+    public static final String En_Progreso= "En_Progreso";
+    public static final String Victoria = "Victoria";
+    public static final String Empate = "Empate";
+    private String Estado;
+    private String NombreDelGanador;
+    private String NombreJugadorA;
+    private String NombreJugadorB;
+    private ConnectFour connectFour;
+    public Game(String NombreJugadorA, String NombreJugadorB) {
+        this.NombreJugadorA = NombreJugadorA;
+        this.NombreJugadorB= NombreJugadorB;
+        this.connectFour = new ConnectFour();
+        this.Estado= En_Progreso;
+        this.NombreDelGanador = "";
+    }
+    public String play() {
+        Scanner scanner = new Scanner(System.in);
+        while (Estado.equals(En_Progreso)) {
+            printBoard();
+            String JugadorActual = connectFour.getSimbolo() == 'X' ? NombreJugadorA : NombreJugadorB;
+            System.out.print("Turno de " + JugadorActual + " (" + connectFour.getSimbolo() +
+                    "). Elige columna (0-5): ");
+            int col = 0;
+            try {
+                col = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Entrada inválida. Intenta de nuevo.");
+                scanner.nextLine();
+                continue;
+            }
+            boolean moveMade = connectFour.makeMove(col);
+            if (!moveMade) {
+                System.out.println("Movimiento inválido (columna llena o fuera de rango). Intenta de nuevo.");
+                continue;
+            }
+            char resultado = connectFour.isGameOver();
+            if (resultado == 'X' || resultado == 'O') {
+                Estado = Victoria;
+                NombreDelGanador = (resultado == 'X') ? NombreJugadorA : NombreJugadorB;
+                printBoard();
+                System.out.println("¡Victoria de " + NombreDelGanador + "!");
+                return NombreDelGanador;
+            } else if (resultado == 'D') {
+                Estado = Empate;
+                NombreDelGanador = "";
+                printBoard();
+                System.out.println("¡El juego termina en empate!");
+                return "";
+            }
+        }
+        return "";
+    }
+    private void printBoard() {
+        char[][] Tablero = connectFour.getTablero();
+        System.out.println("Estado actual del tablero:");
+        for (int i = 0; i < 7; i++) {
+            System.out.print("|");
+            for (int j = 0; j < 6; j++) {
+                System.out.print(Tablero[i][j]);
+                System.out.print("|");
+            }
+            System.out.println();
+        }
+        System.out.println(" 0 1 2 3 4 5\n");
+    }
+    public String getStatus() {
+        return Estado;
+    }
+    public String getWinnerPlayerName() {
+        return NombreDelGanador;
+    }
+    public String getPlayerNameA() {
+        return NombreJugadorA;
+    }
+    public String getPlayerNameB() {
+        return NombreJugadorB;
+    }
+    public ConnectFour getConnectFour() {
+        return connectFour;
+    }
 }

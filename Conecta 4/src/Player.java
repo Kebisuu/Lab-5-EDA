@@ -1,34 +1,35 @@
 class Player {
-    String playerName;
-    int wins;
-    int draws;
-    int losses;
-    Player(String playerName, int wins, int draws, int losses) {
-        this.playerName = playerName;
-        this.wins = wins;
-        this.draws = draws;
-        this.losses = losses;
+    String nombreJugador;
+    int victorias;
+    int empates;
+    int derrotas;
+    Player(String nombreJugador, int victorias, int empates, int derrotas) {
+        this.nombreJugador = nombreJugador;
+        this.victorias = victorias;
+        this.empates = empates;
+        this.derrotas = derrotas;
     }
-    public int getWins() {return wins}
-    public int getDraws() {return draws;}
-    public int getLosses() {return losses;}
-    public String getPlayerName() {return playerName;}
+    public int getWins() {return victorias;}
+    public int getDraws() {return empates;}
+    public int getLosses() {return derrotas;}
+    public String getPlayerName() {return nombreJugador;}
     public void addWin() {
-        wins++;
+        victorias++;
     }
     public void addDraw() {
-        draws++;
+        empates++;
     }
     public void addLoss() {
-        losses++;
+        derrotas++;
     }
     public float winRate() {
-        if (getWins() == 0) {
+        float juegosTotales = victorias + empates + derrotas;
+        if (juegosTotales== 0) {
             return 0;
         }
         else {
-            float percentage = getWins()/(getWins()+getDraws()+getLosses());
-            return percentage;
+            float porcentaje = victorias/juegosTotales;
+            return porcentaje;
         }
     }
 }
