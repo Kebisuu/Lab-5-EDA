@@ -2,19 +2,19 @@ public class ConnectFour {
     private char[][] Tablero;
     private char Simbolo;
     public ConnectFour() {
-        Tablero = new char[7][6];
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 6; j++) {
-                Tablero[i][j] = ' ';
+        Tablero = new char[6][7];
+        for (int fila = 0; fila < 6; fila++) {
+            for (int columna = 0; columna < 7; columna++) {
+                Tablero[fila][columna] = ' ';
             }
         }
         Simbolo = 'X';
     }
-    public boolean makeMove(int z) {
-        if (z < 0 || z >= 6) return false;
-        for (int fila = 6; fila >= 0; fila--) {
-            if (Tablero[fila][z] == ' ') {
-                Tablero[fila][z] = Simbolo;
+    public boolean makeMove(int columna) {
+        if (columna < 0 || columna >= 7) return false;
+        for (int fila = 5; fila >= 0; fila--) {
+            if (Tablero[fila][columna] == ' ') {
+                Tablero[fila][columna] = Simbolo;
                 Simbolo = (Simbolo == 'X') ? 'O' : 'X';
                 return true;
             }
@@ -22,50 +22,43 @@ public class ConnectFour {
         return false;
     }
     public char isGameOver() {
-        for (int fila = 0; fila < 7; fila++) {
-            for (int columna = 0; fila < 3; fila++) {
-                char c = Tablero[fila][columna];
-                if (c != ' ' &&
-                        c == Tablero[fila][columna+1] &&
-                        c == Tablero[fila][columna+2] &&
-                        c == Tablero[fila][columna+3])
+        for (int fila = 0; fila < 6; fila++) {
+            for (int col = 0; col <= 3; col++) {
+                char c = Tablero[fila][col];
+                if (c != ' ' && c == Tablero[fila][col+1] && c == Tablero[fila][col+2] && c == Tablero[fila][col+3])
                     return c;
             }
         }
-        for (int columna = 0; columna < 6; columna++) {
-            for (int fila = 0; fila < 4; fila++) {
-                char c = Tablero[fila][columna];
-                if (c != ' ' &&
-                        c == Tablero[fila+1][columna] &&
-                        c == Tablero[fila+2][columna] &&
-                        c == Tablero[fila+3][columna])
+        for (int col = 0; col < 7; col++) {
+            for (int fila = 0; fila <= 2; fila++) {
+                char c = Tablero[fila][col];
+                if (c != ' ' && c == Tablero[fila+1][col] && c == Tablero[fila+2][col] && c == Tablero[fila+3][col])
                     return c;
             }
         }
-        for (int fila = 0; fila < 4; fila++) {
-            for (int columna = 0; columna < 3; columna++) {
-                char c = Tablero[fila][columna];
-                if (c != ' ' &&
-                        c == Tablero[fila+1][columna+1] &&
-                        c == Tablero[fila+2][columna+2] &&
-                        c == Tablero[fila+3][columna+3])
+        for (int fila = 0; fila <= 2; fila++) {
+            for (int col = 0; col <= 3; col++) {
+                char c = Tablero[fila][col];
+                if (c != ' ' && c == Tablero[fila+1][col+1] && c == Tablero[fila+2][col+2] && c == Tablero[fila+3][col+3])
                     return c;
             }
         }
-        for (int fila = 3; fila< 7; fila++) {
-            for (int columna = 0; columna < 3; columna++) {
-                char c = Tablero[fila][columna];
-                if (c != ' ' &&
-                        c == Tablero[fila-1][columna+1] &&
-                        c == Tablero[fila-2][columna+2] &&
-                        c == Tablero[fila-3][columna+3])
+        for (int fila = 3; fila < 6; fila++) {
+            for (int col = 0; col <= 3; col++) {
+                char c = Tablero[fila][col];
+                if (c != ' ' && c == Tablero[fila-1][col+1] && c == Tablero[fila-2][col+2] && c == Tablero[fila-3][col+3])
                     return c;
             }
         }
         boolean lleno = true;
-        for (int fila = 0; fila < 7; fila++)
-            for (int columna = 0; columna < 6; columna++)
-                if (Tablero[fila][columna] == ' ') lleno = false;
+        for (int fila = 0; fila < 6; fila++) {
+            for (int col = 0; col < 7; col++) {
+                if (Tablero[fila][col] == ' ') {
+                    lleno = false;
+                    break;
+                }
+            }
+        }
         if (lleno) return 'E';
         return ' ';
     }

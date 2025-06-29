@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Game {
-    public static final String En_Progreso= "En_Progreso";
+    public static final String En_Progreso = "En_Progreso";
     public static final String Victoria = "Victoria";
     public static final String Empate = "Empate";
     private String Estado;
@@ -10,9 +10,9 @@ public class Game {
     private ConnectFour connectFour;
     public Game(String NombreJugadorA, String NombreJugadorB) {
         this.NombreJugadorA = NombreJugadorA;
-        this.NombreJugadorB= NombreJugadorB;
+        this.NombreJugadorB = NombreJugadorB;
         this.connectFour = new ConnectFour();
-        this.Estado= En_Progreso;
+        this.Estado = En_Progreso;
         this.NombreDelGanador = "";
     }
     public String play() {
@@ -20,9 +20,8 @@ public class Game {
         while (Estado.equals(En_Progreso)) {
             printBoard();
             String JugadorActual = connectFour.getSimbolo() == 'X' ? NombreJugadorA : NombreJugadorB;
-            System.out.print("Turno de " + JugadorActual + " (" + connectFour.getSimbolo() +
-                    "). Elige columna (0-5): ");
-            int col = 0;
+            System.out.print("Turno de " + JugadorActual + " (" + connectFour.getSimbolo() + "). Elige columna (0-6): ");
+            int col;
             try {
                 col = scanner.nextInt();
             } catch (Exception e) {
@@ -42,7 +41,7 @@ public class Game {
                 printBoard();
                 System.out.println("¡Victoria de " + NombreDelGanador + "!");
                 return NombreDelGanador;
-            } else if (resultado == 'D') {
+            } else if (resultado == 'E') {
                 Estado = Empate;
                 NombreDelGanador = "";
                 printBoard();
@@ -55,15 +54,15 @@ public class Game {
     private void printBoard() {
         char[][] Tablero = connectFour.getTablero();
         System.out.println("Estado actual del tablero:");
-        for (int i = 0; i < 7; i++) {
+        for (int fila = 0; fila < 6; fila++) {
             System.out.print("|");
-            for (int j = 0; j < 6; j++) {
-                System.out.print(Tablero[i][j]);
+            for (int col = 0; col < 7; col++) {
+                System.out.print(Tablero[fila][col]);
                 System.out.print("|");
             }
             System.out.println();
         }
-        System.out.println(" 0 1 2 3 4 5\n");
+        System.out.println(" 0 1 2 3 4 5 6\n");
     }
     public String getStatus() {
         return Estado;

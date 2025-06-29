@@ -25,12 +25,14 @@ public class Main {
             System.out.println(jugadorA + " : Victorias: " + Puntuaciones.getPlayer(jugadorA).getWins() +
                     ", Empates: " + Puntuaciones.getPlayer(jugadorA).getDraws() +
                     ", Derrotas: " + Puntuaciones.getPlayer(jugadorA).getLosses());
+
             System.out.println(jugadorB + " : Victorias: " + Puntuaciones.getPlayer(jugadorB).getWins() +
                     ", Empates: " + Puntuaciones.getPlayer(jugadorB).getDraws() +
                     ", Derrotas: " + Puntuaciones.getPlayer(jugadorB).getLosses());
-            System.out.print("Otra partida? (Si/NO) ");
+            System.out.print("¿Otra partida? (si/no): ");
             String resp = scanner.nextLine().trim().toLowerCase();
-            nuevoJuego = resp.equals("Si");
+            nuevoJuego = resp.equals("si");
         }
+        System.out.println("¡Gracias por jugar!");
     }
 }
